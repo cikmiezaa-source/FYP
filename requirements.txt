@@ -158,5 +158,6 @@ xxhash==3.5.0
 yarl==1.20.1
 yellowbrick==1.5
 zipp==3.21.0
+seaborn
+matplotlib
 gdown
-joblib
