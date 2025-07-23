@@ -11,12 +11,28 @@ import time
 from fpdf import FPDF
 import altair as alt
 import os
+import gdown
 from datetime import datetime, timedelta
 from sentence_transformers import SentenceTransformer, util
  
-# --- Load Models ---
+# Google Drive file IDs
+phishing_id = "1CkqATNP7tVe5RB06wfJzkwjCOnUA8EfQ"
+cyber_id = "1pVCAD90KigCi4s4Wk4uaXi5Jr77SSdKw"
+
+# Construct the download URLs
+phishing_url = f"https://drive.google.com/uc?id={phishing_id}"
+cyber_url = f"https://drive.google.com/uc?id={cyber_id}"
+
+# Download models only if not present
+if not os.path.exists("best_phishing_model.pkl"):
+    gdown.download(phishing_url, "best_phishing_model.pkl", quiet=False)
+
+if not os.path.exists("best_cyberbullying_model.pkl"):
+    gdown.download(cyber_url, "best_cyberbullying_model.pkl", quiet=False)
+
+# Load the models
 phishing_model = joblib.load("best_phishing_model.pkl")
-cyber_model = joblib.load("best_cyberbullying_model.pkl")  # SVM model
+cyber_model = joblib.load("best_cyberbullying_model.pkl")
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
  
 # --- Twitter API ---
